@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:lab6_7">
+    <Style x:Key="CB_Rating_Sort_Style">
+    <Style.Triggers>
+        <DataTrigger Binding="{Binding ElementName=CB_rating_Sort, Path=IsChecked}" Value="True">
+            <Setter Property="Control.Foreground" Value="Cyan" ></Setter>
+        </DataTrigger>
+    </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:lab6_7">
+
+    <Style x:Key="LightDarkGrid" TargetType="Grid">
+        <Setter Property="Background" Value="#6b2832"></Setter>
+    </Style>
+
+    <Style x:Key="LightDarkMenu" TargetType="Menu">
+        <Setter Property="Background" Value="#c96f7b"></Setter>
+        <Setter Property="ItemsControl.Foreground" Value="DarkBlue"></Setter>
+    </Style>
+    <Style x:Key="LightDarkTabItems" TargetType="TabItem">
+        <Setter Property="Background" Value="#3d001e"></Setter>
+        <Setter Property="ItemsControl.Foreground" Value="Gray"></Setter>
+    </Style>
+    <Style x:Key="LightDarkTextBlock" TargetType="TextBlock">
+        <Setter Property="ItemsControl.Foreground" Value="White"></Setter>
+    </Style>
+    <Style x:Key="LightDarkTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#3d001e"></Setter>
+        <Setter Property="ItemsControl.Foreground" Value="White"></Setter>
+    </Style>
+
+    <Style x:Key="LightDarkButton" TargetType="Button">
+        <Setter Property="Background" Value="#3d001e"></Setter>
+        <Setter Property="ItemsControl.Foreground" Value="DarkGray"></Setter>
+    </Style>
+
+</ResourceDictionary>

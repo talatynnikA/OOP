@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:lab6_7">
+    <ControlTemplate TargetType="TextBox" x:Key="Interesting_TB">
+        <Border CornerRadius="15"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="4"
+                Background="PeachPuff"
+                Height="{TemplateBinding Height}"
+                Width="{TemplateBinding Width}" >
+            <ContentControl Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

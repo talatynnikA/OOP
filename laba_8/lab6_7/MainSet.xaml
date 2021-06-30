@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:lab6_7">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Dictionary_ru.xaml" />
+        <ResourceDictionary Source="MainInputBackground.xaml" />
+        <ResourceDictionary Source="StyleForCB_NOP_Sort.xaml" />
+        <ResourceDictionary Source="StyleForCB_Rating_Sort.xaml" />
+        <ResourceDictionary Source="StyleForDeleteButton.xaml" />
+        <ResourceDictionary Source="StyleForTextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
