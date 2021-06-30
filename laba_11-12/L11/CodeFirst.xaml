@@ -1,0 +1,152 @@
+﻿<Window x:Class="L11.CodeFirst"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:L11"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        Title="БД из кода" Height="450" Width="800" ResizeMode="NoResize" Icon="Assets/icon.png">
+    <DockPanel>
+        <Grid DockPanel.Dock="Left" Name="dockPanelMenu" Background="DarkGray" Width="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <Canvas Grid.RowSpan="10">
+                <Rectangle x:Name="rectActive" Fill="{DynamicResource PrimaryHueDarkBrush}" Height="35" Width="3" RadiusX="2" RadiusY="2" Canvas.Top="50" Margin="1,0"/>
+            </Canvas>
+            <StackPanel MouseDown="StackPanel_MouseDown" Orientation="Horizontal" Grid.Column="1" Cursor="Hand">
+                <Image Source="Assets/menu.png" Margin="10"/>
+                <Label Content="Меню" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <StackPanel.ToolTip>
+                    <ToolTip Content="Меню"/>
+                </StackPanel.ToolTip>
+            </StackPanel>
+            <StackPanel x:Name="stackEmployees" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" MouseDown="stackEmployees_MouseDown" Cursor="Hand">
+                <Image Source="Assets/employees.png" Margin="10"/>
+                <Label Content="Сотрудники" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <StackPanel.ToolTip>
+                    <ToolTip Content="Сотрудники"/>
+                </StackPanel.ToolTip>
+            </StackPanel>
+            <StackPanel x:Name="stackEmployeeSearch" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" MouseDown="stackEmployeeSearch_MouseDown" Cursor="Hand">
+                <Image Source="Assets/search.png" Margin="10" Width="22"/>
+                <Label Content="Поиск сотрудников" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <StackPanel.ToolTip>
+                    <ToolTip Content="Поиск сотрудников"/>
+                </StackPanel.ToolTip>
+            </StackPanel>
+            <StackPanel x:Name="stackPost" Orientation="Horizontal" Grid.Row="3" Grid.Column="1" MouseDown="stackPost_MouseDown" Cursor="Hand">
+                <Image Source="Assets/post.png" Margin="10"/>
+                <Label Content="Должности" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <StackPanel.ToolTip>
+                    <ToolTip Content="Должности"/>
+                </StackPanel.ToolTip>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="gridMain">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <DataGrid x:Name="dataGridStaff" AutoGenerateColumns="False" RowEditEnding="dataGridStaff_RowEditEnding" SelectionChanged="dataGridStaff_SelectionChanged" CommandManager.PreviewExecuted="dataGridStaff_PreviewExecuted" CellEditEnding="dataGridStaff_CellEditEnding" BeginningEdit="dataGridStaff_BeginningEdit" PreviewLostKeyboardFocus="dataGridStaff_PreviewLostKeyboardFocus" LoadingRowDetails="dataGridStaff_LoadingRowDetails" LostFocus="dataGridStaff_LostFocus">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=ID_сотрудника}" Header="ID сотрудника" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Фамилия" Width="*">
+                        <DataGridTextColumn.Binding>
+                            <Binding Path="Фамилия" UpdateSourceTrigger="PropertyChanged" ValidatesOnExceptions="True">
+                                <Binding.ValidationRules>
+                                    <local:ColumnFamilyRule/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DataGridTextColumn.Binding>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style TargetType="TextBox">
+                                <Style.Triggers>
+                                    <Trigger Property="Validation.HasError" Value="True">
+                                        <Setter Property="ToolTip" Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource self}}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=Имя}" Header="Имя" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Отчество}" Header="Отчество" Width="*"/>
+                    <DataGridComboBoxColumn x:Name="dataGridColumnPost" Header="Должность" Width="*" SelectedItemBinding="{Binding Path=Должность}"/>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Фамилия"/>
+                                <TextBox Text="{Binding Фамилия}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Имя"/>
+                                <TextBox Text="{Binding Имя}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Отчество"/>
+                                <TextBox Text="{Binding Отчество}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Должность"/>
+                                <ComboBox x:Name="dataGridStaffPostBox" SelectedItem="{Binding Должность}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Сохранить" Click="Button_Click"/>
+                                <Button Content="Отменить" Click="Button_Click_1"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+            <DataGrid x:Name="dataGridPost" AutoGenerateColumns="False" Visibility="Collapsed" RowEditEnding="dataGridPost_RowEditEnding" SelectionChanged="dataGridPost_SelectionChanged" CommandManager.PreviewExecuted="dataGridStaff_PreviewExecuted">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=Name}" Header="Название" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Salary}" Header="Зарплата" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button x:Name="buttRemove" Grid.Row="1" Content="Удалить" IsEnabled="False" HorizontalAlignment="Center" Click="buttRemove_Click"/>
+        </Grid>
+        <Grid x:Name="gridSearch" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="Фамилия сотрудника"/>
+                <TextBox x:Name="textBoxSurname" Width="150" TextChanged="textBoxSurname_TextChanged"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+                <Label Content="Должность сотрудника"/>
+                <TextBox x:Name="textBoxPost" Width="150" TextChanged="textBoxSurname_TextChanged"/>
+            </StackPanel>
+            <DataGrid x:Name="dataGridSearch" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="1" Grid.ColumnSpan="2">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path=ID_сотрудника}" Header="ID сотрудника"/>
+                    <DataGridTextColumn Binding="{Binding Фамилия}" Header="Фамилия" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Имя}" Header="Имя" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Отчество}" Header="Отчество" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Path=Должность}" Header="Должность" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</Window>

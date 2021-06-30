@@ -1,0 +1,34 @@
+﻿<Page x:Class="WpfApp1.InfoFrame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="800"
+      Title="InfoFrame">
+
+    <Grid Background="Gray">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"  Grid.Row ="0" Grid.RowSpan="2"  Name="OrderGrid">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="ID" Width="120"
+                                    Binding="{Binding Path=OrderId}"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Товар"  Width="140"
+                                    Binding="{Binding Path=ProductName}"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Описание" Width="140"
+                                    Binding="{Binding Path=Description}"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Количество"  Width="140"
+                                    Binding="{Binding Path=Quantity}"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Дата"  Width="140"
+                                    Binding="{Binding Path=PurchaseDate, StringFormat=\{0:dd.MM.yyyy \}}"></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Покупатель"  Width="100"
+                                    Binding="{Binding Path=Customer.Name}"></DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
